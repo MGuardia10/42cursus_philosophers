@@ -1,0 +1,4 @@
+philo/philo
+.DS_Store
+objs
+*.o
