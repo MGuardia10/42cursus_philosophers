@@ -1,29 +1,31 @@
 # NAME
-NAME		= philo
+NAME		=	philo
 
 # SOURCE
-SRC_DIR		= src/
-SRC_FILES	= main.c
-SRC			= $(addprefix $(SRC_DIR), $(SRC_FILES))
+SRC_DIR		=	src/
+SRC_FILES	=	main.c \
+				init_data.c \
+				utils.c
+SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 # OBJECTS
-OBJ_DIR		= objs/
-OBJ_FILES	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+OBJ_DIR		=	objs/
+OBJ_FILES	=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 # COMPILER
-CC			= cc
-FLAGS		= -Wall -Wextra -Werror
-INC			= -I inc
-THREADS		= -lpthread
-RM			= rm -rf
+CC			=	cc
+FLAGS		=	-Wall -Wextra -Werror
+INC			=	-I inc
+THREADS		=	-lpthread
+RM			=	rm -rf
 
 # COLORS
-RED		=	\033[91;1m
-GREEN	=	\033[92;1m
-YELLOW	=	\033[93;1m
-BLUE	=	\033[94;1m
-PINK	=	\033[95;1m
-CLEAR	=	\033[0m
+RED		=		\033[91;1m
+GREEN	=		\033[92;1m
+YELLOW	=		\033[93;1m
+BLUE	=		\033[94;1m
+PINK	=		\033[95;1m
+CLEAR	=		\033[0m
 
 # RULES
 all:	$(NAME)
