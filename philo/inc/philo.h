@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:27:08 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/13 18:48:14 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/13 20:14:30 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,11 @@ struct s_all
 	t_fork	*forks;
 };
 
-// init_data
+// parsing arguments
 int		args_parsing(t_all *data, char **argv);
+
+// init_data
+int		init_data(t_all *data);
 
 // print funcitons
 void	help(t_error error);

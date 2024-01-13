@@ -4,8 +4,10 @@ NAME		=	philo
 # SOURCE
 SRC_DIR		=	src/
 SRC_FILES	=	main.c \
+				parsing.c \
 				init_data.c \
-				utils.c
+				utils.c \
+				print.c
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 # OBJECTS
