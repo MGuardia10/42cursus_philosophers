@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:27:08 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/03 16:26:51 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/13 18:48:14 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,70 @@
 # include <string.h>	// memset
 # include <unistd.h>	// write, usleep
 # include <sys/time.h>	// gettimeofday
-# include <pthread.h>	// threads
+# include <pthread.h>	// threads & mutex
 
-typedef enum e_bool
+// typedefs
+typedef enum e_bool		t_bool;
+typedef enum e_error	t_error;
+typedef struct s_all	t_all;
+typedef struct s_fork	t_fork;
+typedef struct s_philo	t_philo;
+
+// enums
+enum e_bool
 {
 	false,
 	true
-}	t_bool;
+};
 
-typedef enum e_error
+enum e_error
 {
 	ARGC_ERROR,
 	NUMBER_ERROR,
 	N_PHILOS_ZERO,
 	N_TIMES_EAT_ZERO,
-}	t_error;
+};
 
-typedef struct s_all
+// structs
+struct s_fork
+{
+	unsigned int	id;
+	pthread_mutex_t	mutex;
+};
+
+struct s_philo
+{
+	unsigned int	id;
+	size_t			meal_counter;
+	size_t			last_meal_time;
+	t_bool			is_full;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
+	pthread_t		thread_id;
+	t_all			*data;
+};
+
+struct s_all
 {
 	size_t	n_philos;
-	size_t	n_forks;
 	size_t	time_die;
 	size_t	time_eat;
 	size_t	time_sleep;
-	size_t	n_times_eat;
-}	t_all;
+	long	n_times_eat; // if -1 --> no n_times_eat
+	size_t	start_sim;
+	size_t	end_sim; // simulation finish when a philo dies or everyone is full.
+	t_philo	*philos;
+	t_fork	*forks;
+};
 
 // init_data
-t_bool	init_data(t_all *data, char **argv);
+int		args_parsing(t_all *data, char **argv);
+
+// print funcitons
+void	help(t_error error);
+void	print_info(t_all data);
 
 // utils
-void	help(t_error error);
 t_bool	is_space(char c);
 t_bool	is_sign(char c);
 
