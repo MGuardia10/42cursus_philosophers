@@ -6,11 +6,12 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:54:06 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/13 19:13:50 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:15:12 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+#include "../inc/error.h"
 
 static int	ft_atosize_t(size_t *nbr, char *str, size_t i)
 {
@@ -38,7 +39,7 @@ static int	ft_atosize_t(size_t *nbr, char *str, size_t i)
 	return (1);
 }
 
-static t_bool	is_valid_arg(size_t *nbr, char *str, size_t i)
+static bool	is_valid_arg(size_t *nbr, char *str, size_t i)
 {
 	int	flag;
 
@@ -76,9 +77,9 @@ int	args_parsing(t_all *data, char **argv)
 		if (is_valid_arg(&nbr, argv[i], i) == 0)
 		{
 			if (i == 1 && nbr == 0)
-				return (help(N_PHILOS_ZERO), 1);
+				return (help(PHILOS_ZERO_ERROR), 1);
 			else if (i == 5 && nbr == 0)
-				return (help(N_TIMES_EAT_ZERO), 1);
+				return (help(N_EAT_ZERO_ERROR), 1);
 			else
 				return (help(NUMBER_ERROR), 1);
 		}

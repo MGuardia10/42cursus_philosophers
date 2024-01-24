@@ -6,27 +6,18 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 11:54:11 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/13 18:51:36 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/24 09:12:26 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 #include "../inc/colors.h"
+#include "../inc/error.h"
 
-void	help(t_error error)
+void	help(char *error)
 {
-	if (error == ARGC_ERROR)
-		printf("%sError: Invalid number of arguments.%s\n\n", BRED, RES);
-	else if (error == NUMBER_ERROR)
-		printf("%sError: Arguments must be positive integers.%s\n\n", \
-										BRED, RES);
-	else if (error == N_PHILOS_ZERO)
-		printf("%sError: Number of philos cannot be 0.%s\n\n", BRED, RES);
-	else if (error == N_TIMES_EAT_ZERO)
-		printf("%sError: Number of times each philo eat cannot be 0.%s\n\n", \
-										BRED, RES);
-	printf("\t%sUsage: ./philo <n_philosophers> <time_to_die> <time_to_eat>", \
-										BMAG);
+	printf("%s%s%s\n\n", BRED, error, RES);
+	printf("\t%sUsage: ./philo <n_philos> <time_to_die> <time_to_eat>", BMAG);
 	printf(" <time_to_sleep> [n_times_each_philosopher_eat]\n");
 	printf("\t<> --> obligatory\n\t[] --> optional\n\n%s", RES);
 }
@@ -49,4 +40,23 @@ void	print_info(t_all data)
 									MAG, data.n_times_eat, BBLU);
 	printf("\n\n           %s-- %s STARTING SIMULATION %s%s --%s\n\n", \
 									BGRN, GRNB, RES, BGRN, RES);
+}
+
+void	print_action(t_action action, t_all *table, t_philo philo)
+{
+	size_t	start_time;
+
+	start_time = get_size_t(table->table_mtx, &table->start_time);
+	pthread_mutex_lock(&table->write_mtx);
+	if (action == DEAD)
+		printf("%-6zu %d died\n", get_time(MILISECONDS) - start_time, philo.id);
+	else if (action == EATING)
+		printf("%-6zu %d is eating\n", get_time(MILISECONDS) - start_time, philo.id);
+	else if (action == SLEEPING)
+		printf("%-6zu %d is sleeping\n", get_time(MILISECONDS) - start_time, philo.id);
+	else if (action == THINKING)
+		printf("%-6zu %d is thinking\n", get_time(MILISECONDS) - start_time, philo.id);
+	else if (action == TWO_FORKS)
+		printf("%-6zu %d has taken a fork\n", get_time(MILISECONDS) - start_time, philo.id);
+	pthread_mutex_unlock(&table->write_mtx);
 }

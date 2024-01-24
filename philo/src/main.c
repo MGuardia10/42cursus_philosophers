@@ -6,32 +6,40 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:25:18 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/13 20:21:32 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/24 08:55:31 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 #include "../inc/colors.h"
+#include "../inc/error.h"
 
-void	leaks(void)
-{
-	system("leaks -q philo");
-}
+// void	leaks(void)
+// {
+// 	system("leaks -q philo");
+// }
 
 int	main(int argc, char **argv)
 {
 	t_all	data;
 
-	atexit(leaks);
+	// atexit(leaks);
+	// verificar inputs
 	if (argc != 5 && argc != 6)
 		return (help(ARGC_ERROR), EXIT_FAILURE);
 	if (args_parsing(&data, argv))
 		return (EXIT_FAILURE);
+	// iniciar estructuras y mutex
 	if (init_data(&data))
 		return (EXIT_FAILURE);
+	// imprimir valores por pantalla
 	print_info(data);
-	
-	
+	// iniciar la simulacion
+	if (start_simulation(&data))
+		return (EXIT_FAILURE);
+	// destruir mutex y limpiar memoria
+
+	// printf("ADIOS\n");
 	// printf("100ms - philo[1] has taken the fork.\n");
 	// printf("100ms - philo[1] is eating.\n");
 	// printf("100ms - philo[1] is thinking.\n");
