@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:27:08 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/24 11:04:18 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:53:00 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@
 # include <unistd.h>	// write, usleep
 # include <sys/time.h>	// gettimeofday
 # include <pthread.h>	// threads & mutex
-# include <errno.h>		// para definir errores de mutex y threads
 # include <stdbool.h>
 
-// typedefs
+/* Typedefs */
 typedef enum e_time_format	t_time_format;
 typedef enum e_action		t_action;
 typedef struct s_all		t_all;
@@ -30,7 +29,7 @@ typedef struct s_fork		t_fork;
 typedef struct s_philo		t_philo;
 typedef pthread_mutex_t		t_mtx;
 
-// enums
+/* Enums */
 enum e_time_format
 {
 	MILISECONDS,
@@ -47,7 +46,7 @@ enum e_action
 	TWO_FORKS
 };
 
-// structs
+/* Structs */
 struct s_fork
 {
 	unsigned int	id;
@@ -70,56 +69,59 @@ struct s_philo
 struct s_all
 {
 	size_t		n_philos;
-	size_t		n_philos_running;
 	size_t		time_die;
 	size_t		time_eat;
 	size_t		time_sleep;
 	long		n_times_eat; // if -1 --> no n_times_eat
-	
+
+	size_t		n_philos_running;
+	bool		all_philos_running;
 	size_t		start_time;
+	
 	bool		start_sim;
-	bool		end_sim; // simulation finish when a philo dies or everyone is full.
+	bool		end_sim; // simulation finish when a philo dies or all full.
 	
 	t_philo		*philos;
 	t_fork		*forks;
-	pthread_t	supervisor;
 	
-	t_mtx		table_mtx;
-	t_mtx		start_mtx;
-	t_mtx		write_mtx;
+	pthread_t	supervisor;
 
+	t_mtx		table_mtx;
+	t_mtx		write_mtx;
+	t_mtx		control_mtx;
 };
 
-// parsing arguments
+/* parsing arguments */
 int		args_parsing(t_all *data, char **argv);
 
-// init_data
+/* Init data */
 int		init_data(t_all *data);
 
-// simulation
+/* Simulation */
 int		start_simulation(t_all *data);
 
-// getters y setters
+/* getters y setters */
 bool	get_bool(t_mtx mutex, bool *value);
 size_t	get_size_t(t_mtx mutex, size_t	*value);
 void	set_bool(t_mtx mutex, bool *property, bool value);
 void	set_size_t(t_mtx mutex, size_t *property, size_t value);
-bool	is_simulation_finish(t_all *data);
-
-// print funcitons
+void	increment_n_philos(t_all *data);
+/* Print functions */
 void	help(char *error);
 void	print_info(t_all data);
 void	print_action(t_action action, t_all *table, t_philo philo);
 
-// syncro utils
+/* Syncro utils */
 void	wait_all_threads(t_all *data);
 bool	all_philos_running(t_mtx mutex, t_all *table);
 bool	is_simulation_finish(t_all *data);
 
-
-// utils
+/* Utils */
 bool	is_space(char c);
 bool	is_sign(char c);
 size_t	get_time(t_time_format time_format);
+
+/* Debug */
+void	print_debug(t_mtx *mutex, char *str);
 
 #endif
