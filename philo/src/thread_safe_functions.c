@@ -6,11 +6,11 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 06:53:42 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/24 11:04:28 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:57:39 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/philo.h"
+#include "../inc/philo.h"
 
 // Getters
 bool	get_bool(t_mtx mutex, bool *value)
@@ -32,6 +32,7 @@ size_t	get_size_t(t_mtx mutex, size_t *value)
 	pthread_mutex_unlock(&mutex);
 	return (read_value);
 }
+
 // Setters
 void	set_bool(t_mtx mutex, bool *property, bool value)
 {
@@ -45,4 +46,13 @@ void	set_size_t(t_mtx mutex, size_t *property, size_t value)
 	pthread_mutex_lock(&mutex);
 	*property = value;
 	pthread_mutex_unlock(&mutex);
+}
+
+void	increment_n_philos(t_all *data)
+{
+	pthread_mutex_lock(&data->table_mtx);
+	data->n_philos_running += 1;
+	if (data->n_philos_running == data->n_philos)
+		set_bool(data->control_mtx, &data->all_philos_running, true);
+	pthread_mutex_unlock(&data->table_mtx);
 }

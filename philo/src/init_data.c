@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:12:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/24 10:09:50 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:54:49 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	init_mutexes(t_all *data)
 
 	pthread_mutex_init(&data->write_mtx, NULL);
 	pthread_mutex_init(&data->table_mtx, NULL);
-	pthread_mutex_init(&data->start_mtx, NULL);
+	pthread_mutex_init(&data->control_mtx, NULL);
 	data->forks = malloc(data->n_philos * sizeof(t_fork));
 	if (!data->forks)
 		return (printf("%s"MALLOC_ERROR"%s\n", RED, RES), 1);
@@ -34,7 +34,6 @@ static int	init_mutexes(t_all *data)
 				pthread_mutex_destroy(&data->forks[i].fork_mtx);
 			return (printf("%s"MUTEX_ERROR"%s\n", RED, RES), 1);
 		}
-		// printf("fork with id: %d allocated okay\n", data->forks[i].id);
 		i++;
 	}
 	return (0);
@@ -59,6 +58,7 @@ void	assing_forks(t_philo *philo, t_fork *forks, unsigned int philo_pos)
 static int	init_philos(t_all *data)
 {
 	unsigned int	i;
+
 	data->philos = malloc(data->n_philos * sizeof(t_philo));
 	if (!data->philos)
 		return (printf("%s"MALLOC_ERROR"%s\n", RED, RES), \
@@ -80,10 +80,8 @@ static int	init_philos(t_all *data)
 
 int	init_data(t_all *data)
 {
-	// iniciar los forks, un mutex por cada fork
 	if (init_mutexes(data))
 		return (1);
-	// iniciar datos del philo.
 	if (init_philos(data))
 		return (1);
 	return (0);

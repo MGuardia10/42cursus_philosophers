@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:52:27 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/23 10:04:13 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:56:48 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ bool	is_sign(char c)
 	return (c == '+' || c == '-');
 }
 
-size_t get_time(t_time_format time_format)
+size_t	get_time(t_time_format time_format)
 {
-	struct timeval time;
+	struct timeval	time;
 
 	gettimeofday(&time, NULL);
 	if (time_format == MICROSECONDS)

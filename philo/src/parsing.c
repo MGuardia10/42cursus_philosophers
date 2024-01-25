@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:54:06 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/23 18:15:12 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:53:39 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,5 @@ int	args_parsing(t_all *data, char **argv)
 		nbr = 0;
 		i++;
 	}
-	// printf("n_philos --> %zu\n", data->n_philos);
-	// printf("time_die --> %zu\n", data->time_die);
-	// printf("time_eat --> %zu\n", data->time_eat);
-	// printf("time_sleep --> %zu\n", data->time_sleep);
-	// printf("n_times_eat --> %ld\n", data->n_times_eat);
 	return (0);
 }

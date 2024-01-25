@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 11:54:11 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/24 09:12:26 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:59:08 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,27 @@ void	print_action(t_action action, t_all *table, t_philo philo)
 {
 	size_t	start_time;
 
-	start_time = get_size_t(table->table_mtx, &table->start_time);
+	start_time = table->start_time;
 	pthread_mutex_lock(&table->write_mtx);
 	if (action == DEAD)
 		printf("%-6zu %d died\n", get_time(MILISECONDS) - start_time, philo.id);
 	else if (action == EATING)
-		printf("%-6zu %d is eating\n", get_time(MILISECONDS) - start_time, philo.id);
+		printf("%-6zu %d is eating\n", get_time(MILISECONDS) - start_time, \
+																	philo.id);
 	else if (action == SLEEPING)
-		printf("%-6zu %d is sleeping\n", get_time(MILISECONDS) - start_time, philo.id);
+		printf("%-6zu %d is sleeping\n", get_time(MILISECONDS) - start_time, \
+																	philo.id);
 	else if (action == THINKING)
-		printf("%-6zu %d is thinking\n", get_time(MILISECONDS) - start_time, philo.id);
+		printf("%-6zu %d is thinking\n", get_time(MILISECONDS) - start_time, \
+																	philo.id);
 	else if (action == TWO_FORKS)
 		printf("%-6zu %d has taken a fork\n", get_time(MILISECONDS) - start_time, philo.id);
 	pthread_mutex_unlock(&table->write_mtx);
+}
+
+void	print_debug(t_mtx *mutex, char *str)
+{
+	pthread_mutex_lock(mutex);
+	printf("%s\n", str);
+	pthread_mutex_unlock(mutex);
 }

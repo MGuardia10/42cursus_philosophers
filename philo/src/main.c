@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:25:18 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/24 08:55:31 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:55:28 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	main(int argc, char **argv)
 	if (start_simulation(&data))
 		return (EXIT_FAILURE);
 	// destruir mutex y limpiar memoria
-
-	// printf("ADIOS\n");
 	// printf("100ms - philo[1] has taken the fork.\n");
 	// printf("100ms - philo[1] is eating.\n");
 	// printf("100ms - philo[1] is thinking.\n");
