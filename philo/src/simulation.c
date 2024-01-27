@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:21:54 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 21:52:43 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/27 22:26:21 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ int	start_simulation(t_table *table)
 	unsigned int	i;
 
 	i = 0;
-	if (pthread_create(&table->supervisor, NULL, supervisor_routine, table) != 0)
+	if (pthread_create(&table->supervisor, NULL, supervisor_routine, table))
 		return (printf("%s"THREAD_ERROR"%s\n", RED, RES), 1);
 	while (i < table->n_philos)
 	{
 		if (pthread_create(&table->philos[i].thread_id, NULL, philo_routine, \
-														&table->philos[i]) != 0)
+														&table->philos[i]))
 			return (printf("%s"THREAD_ERROR"%s\n", RED, RES), 1);
 		i++;
 	}

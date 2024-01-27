@@ -6,12 +6,11 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 06:53:42 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 09:49:05 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/27 22:26:50 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
 
 /**
  * The function `get_bool` reads the value of a boolean variable protected by a

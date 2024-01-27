@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:52:27 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 22:09:00 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/27 22:26:37 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	usleep_mod(long wait_time, t_table *table)
 			return ;
 		t_curr = get_time(MICROSECONDS) - t_start;
 		t_remaining = wait_time - t_curr;
-
 		if (t_remaining > 1000)
 			usleep(t_remaining / 2);
 		else

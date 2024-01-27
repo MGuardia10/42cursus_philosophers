@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:12:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 22:05:50 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/27 22:27:09 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	assing_forks(t_philo *philo, t_fork *forks, unsigned int philo_pos)
 		philo->first_fork = &(forks[(philo_pos + 1) % philo->table->n_philos]);
 		philo->second_fork = &(forks[philo_pos]);
 	}
-	// printf("philo[%d] first fork --> fork [%d]\n", philo->id, philo->first_fork->id);
-	// printf("philo[%d] second fork --> fork [%d]\n\n", philo->id, philo->second_fork->id);
 }
 
 static int	init_philos(t_table *table)
