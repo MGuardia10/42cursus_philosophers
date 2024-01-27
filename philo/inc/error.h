@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:41:14 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/24 16:37:57 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/27 09:59:24 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define NUMBER_ERROR		"Error: Arguments must be positive integers."
 # define PHILOS_ZERO_ERROR	"Error: Number of philos cannot be 0."
 # define N_EAT_ZERO_ERROR	"Error: Number of times each philo eat cannot be 0."
-
+# define INT_MAX_ERROR		"Error: Numbers can´t exceed INT_MAX value."
 /*
 * Memory errors
 */
