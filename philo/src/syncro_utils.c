@@ -6,29 +6,55 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:10:50 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/25 19:55:12 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/27 10:37:34 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	wait_all_threads(t_all *data)
+/**
+ * The function ´wait_all_threads´ it´s a wrap of the function ´get_bool´ to
+ * read the value of the flag that marks the start of the simulation. The only
+ * goal of this function is to make the code more readable.
+ * 
+ * @param table The parameter "table" is of type "t_table", which is a
+ * user-defined data structure that includes all the info about the table where
+ * the philos are seated.
+ */
+void	wait_all_threads(t_table *table)
 {
-	while (get_bool(data->control_mtx, &data->start_sim) == false)
+	while (get_bool(&table->control_mtx, &table->start_sim) == false)
 		;
 }
 
-bool	all_philos_running(t_mtx mutex, t_all *table)
+/**
+ * The function ´all_philos_running´ checks if all philosophers are currently
+ * running. it´s a wrap of the function ´get_bool´ to read the value of the flag
+ * that marks the start of the supervisor thread. The only goal of this function
+ * is to make the code more readable.
+ * 
+ * @param mutex A pointer to a mutex object.
+ * @param table The `table` parameter is a pointer to a `t_table` struct.
+ * 
+ * @return the value of the boolean variable "table->all_philos_running".
+ */
+bool	all_philos_running(t_mtx *mutex, t_table *table)
 {
-	size_t	philos_running;
-
-	pthread_mutex_lock(&mutex);
-	philos_running = table->all_philos_running;
-	pthread_mutex_unlock(&mutex);
-	return (philos_running);
+	return (get_bool(mutex, &table->all_philos_running));
 }
 
-bool	is_simulation_finish(t_all *data)
+/**
+ * The function ´is_simulation_finish´ checks if the simulation has finished by
+ * returning the value of a boolean variable "end_sim". Again, this functions
+ * it´s a wrap of the function ´get_bool´ to read the value of the flag
+ * that marks the end of the simulation. The only goal of this function
+ * is to make the code more readable.
+ * 
+ * @param table A pointer to a structure of type t_table.
+ * 
+ * @return a boolean value.
+ */
+bool	is_simulation_finish(t_table *table)
 {
-	return (get_bool(data->control_mtx, &data->end_sim));
+	return (get_bool(&table->control_mtx, &table->end_sim));
 }
