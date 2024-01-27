@@ -8,9 +8,11 @@ SRC_FILES	=	main.c \
 				init_data.c \
 				simulation.c \
 				thread_safe_functions.c \
+				actions.c \
 				syncro_utils.c \
 				utils.c \
-				print.c
+				print.c \
+				exit.c
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 # OBJECTS
