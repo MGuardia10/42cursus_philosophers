@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:21:54 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 10:37:08 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/27 21:52:43 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	*one_philo_routine(t_philo *philo)
 {
+	print_action(TAKING_A_FORK, philo->table, *philo);
 	while (is_simulation_finish(philo->table) == false)
 		;
 	return (NULL);
@@ -26,26 +27,21 @@ static void	*philo_routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	// esperar que todos los hilos sean creados
 	wait_all_threads(philo->table);
 	philo->last_meal_time = get_time(MILISECONDS);
 	increment_n_philos(philo->table);
-	// Si solo hay un philo:
 	if (philo->table->n_philos == 1)
 		return (one_philo_routine(philo));
-	// caso contrario: comenzar bucle
 	while (is_simulation_finish(philo->table) == false)
 	{
-		// eating
 		eating(philo);
-		// Si esta lleno, terminar hilo
 		if (philo->is_full == true)
 			break ;
-		// sleeping after eating
 		print_action(SLEEPING, philo->table, *philo);
-		usleep(philo->table->time_sleep * 1e3);
+		usleep_mod(philo->table->time_sleep * 1e3, philo->table);
 		// thinking
 		print_action(THINKING, philo->table, *philo);
+		// thinking(philo);
 	}
 	return (NULL);
 }

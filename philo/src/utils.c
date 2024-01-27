@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:52:27 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 10:41:39 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/27 22:09:00 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,28 @@ bool	is_dead(t_philo *philo)
 	last_meal = get_long(&philo->philo_mtx, &philo->last_meal_time);
 	dif = get_time(MILISECONDS) - last_meal;
 	return (dif > philo->table->time_die);
+}
+
+void	usleep_mod(long wait_time, t_table *table)
+{
+	long	t_start;
+	long	t_curr;
+	long	t_remaining;
+
+	t_start = get_time(MICROSECONDS);
+	while ((get_time(MICROSECONDS) - t_start) < wait_time)
+	{
+		if (is_simulation_finish(table) == true)
+			return ;
+		t_curr = get_time(MICROSECONDS) - t_start;
+		t_remaining = wait_time - t_curr;
+
+		if (t_remaining > 1000)
+			usleep(t_remaining / 2);
+		else
+		{
+			while ((get_time(MICROSECONDS) - t_start) < wait_time)
+				;
+		}
+	}
 }

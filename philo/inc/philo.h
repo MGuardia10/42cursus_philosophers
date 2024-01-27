@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:27:08 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 10:36:35 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/27 21:03:35 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ struct s_table
 };
 
 /* parsing arguments */
-int		args_parsing(t_table *data, char **argv);
+int		args_parsing(t_table *table, char **argv);
 
 /* Init data */
-int		init_data(t_table *data);
+int		init_data(t_table *table);
 
 /* Simulation */
-int		start_simulation(t_table *data);
+int		start_simulation(t_table *table);
 
 /* Actions */
 void	eating(t_philo *philo);
@@ -115,26 +115,27 @@ bool	get_bool(t_mtx *mutex, bool *value);
 long	get_long(t_mtx *mutex, long	*value);
 void	set_bool(t_mtx *mutex, bool *property, bool value);
 void	set_long(t_mtx *mutex, long *property, long value);
-void	increment_n_philos(t_table *data);
+void	increment_n_philos(t_table *table);
 
 /* Print functions */
 void	help(char *error);
-void	print_info(t_table data);
+void	print_info(t_table table);
 void	print_action(t_action action, t_table *table, t_philo philo);
 
 /* Syncro utils */
-void	wait_all_threads(t_table *data);
+void	wait_all_threads(t_table *table);
 bool	all_philos_running(t_mtx *mutex, t_table *table);
-bool	is_simulation_finish(t_table *data);
+bool	is_simulation_finish(t_table *table);
 
 /* Utils */
 bool	is_space(char c);
 bool	is_sign(char c);
 long	get_time(t_time_format time_format);
 bool	is_dead(t_philo *philo);
+void	usleep_mod(long wait_time, t_table *table);
 
 /* Exit */
-void	safe_exit(t_table *data);
+void	safe_exit(t_table *table);
 
 /* Debug */
 void	print_debug(t_mtx *mutex, char *str);
