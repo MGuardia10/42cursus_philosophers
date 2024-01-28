@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:27:08 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 22:25:49 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 12:27:06 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int		start_simulation(t_table *table);
 
 /* Actions */
 void	eating(t_philo *philo);
+void	thinking(t_philo *philo);
 
 /* getters y setters */
 bool	get_bool(t_mtx *mutex, bool *value);
@@ -121,6 +122,7 @@ void	print_action(t_action action, t_table *table, t_philo philo);
 void	wait_all_threads(t_table *table);
 bool	all_philos_running(t_mtx *mutex, t_table *table);
 bool	is_simulation_finish(t_table *table);
+void	make_simulation_fair(t_philo *philo);
 
 /* Utils */
 bool	is_space(char c);

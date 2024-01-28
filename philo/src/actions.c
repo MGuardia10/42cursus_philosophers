@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 12:35:42 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 22:07:56 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 12:20:10 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,16 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->second_fork->fork_mtx);
 }
 
-// void	thinking(t_philo *philo)
-// {
-
-// }
+void	thinking(t_philo *philo)
+{
+	long	t_think;
+	
+	// if number os philos are even system is already fair
+	if (philo->table->n_philos % 2 == 0)
+		return ;
+	// think time = eat * 2 - sleep (in microseconds bc is used in usleep_mod)
+	t_think = (philo->table->time_eat * 2 - philo->table->time_sleep) * 1e3;
+	if (t_think < 0)
+		t_think = 0;
+	usleep_mod(t_think * 0.5, philo->table);
+}

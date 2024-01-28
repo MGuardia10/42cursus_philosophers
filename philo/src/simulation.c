@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:21:54 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 22:26:21 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 12:26:39 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	*philo_routine(void *data)
 	increment_n_philos(philo->table);
 	if (philo->table->n_philos == 1)
 		return (one_philo_routine(philo));
+	make_simulation_fair(philo);
 	while (is_simulation_finish(philo->table) == false)
 	{
 		eating(philo);
@@ -39,9 +40,8 @@ static void	*philo_routine(void *data)
 			break ;
 		print_action(SLEEPING, philo->table, *philo);
 		usleep_mod(philo->table->time_sleep * 1e3, philo->table);
-		// thinking
 		print_action(THINKING, philo->table, *philo);
-		// thinking(philo);
+		thinking(philo);
 	}
 	return (NULL);
 }

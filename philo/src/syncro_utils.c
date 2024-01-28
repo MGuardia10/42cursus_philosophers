@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:10:50 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 10:37:34 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 12:26:28 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,18 @@ bool	all_philos_running(t_mtx *mutex, t_table *table)
 bool	is_simulation_finish(t_table *table)
 {
 	return (get_bool(&table->control_mtx, &table->end_sim));
+}
+
+void	make_simulation_fair(t_philo *philo)
+{
+	if (philo->table->n_philos % 2 == 0)
+	{
+		if (philo->id % 2 == 0)
+			usleep_mod(1e3, philo->table);
+	}
+	else
+	{
+		if (philo->id % 2 == 1)
+			thinking(philo);
+	}
 }
