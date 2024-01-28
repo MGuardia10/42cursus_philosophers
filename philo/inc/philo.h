@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:27:08 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/28 12:27:06 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:47:31 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,5 @@ void	usleep_mod(long wait_time, t_table *table);
 
 /* Exit */
 void	safe_exit(t_table *table);
-
-/* Debug */
-void	print_debug(t_mtx *mutex, char *str);
 
 #endif

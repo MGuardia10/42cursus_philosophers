@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:12:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 22:27:09 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:59:40 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 #include "../inc/colors.h"
 #include "../inc/error.h"
 
+/**
+ * The function initializes mutexes for a table and its forks.
+ * 
+ * @param table A pointer to a structure of type t_table, which contains
+ * information about the table and the philosophers.
+ * 
+ * @return an integer value. If the function is successful, it will return 0. If
+ * there is an error, it will return 1.
+ */
 static int	init_mutexes(t_table *table)
 {
 	unsigned int	i;
@@ -39,6 +48,14 @@ static int	init_mutexes(t_table *table)
 	return (0);
 }
 
+/**
+ * The function assigns forks to a philosopher based on their position and
+ * whether their ID is even or odd.
+ * 
+ * @param philo A pointer to a struct representing a philosopher.
+ * @param forks An array of t_fork structures representing the available forks.
+ * @param philo_pos The position of the philosopher in the table (0-indexed).
+ */
 void	assing_forks(t_philo *philo, t_fork *forks, unsigned int philo_pos)
 {
 	if (philo->id % 2 == 0)
@@ -53,6 +70,17 @@ void	assing_forks(t_philo *philo, t_fork *forks, unsigned int philo_pos)
 	}
 }
 
+/**
+ * The function initializes the philosophers in a dining table by assigning 
+ * them unique IDs, initializing their meal counters and last meal times,
+ * setting their fullness status to false, and initializing the necessary
+ * mutexes and forks.
+ * 
+ * @param table A pointer to a struct of type t_table, that contains information
+ * about the dining table and the philosophers sitting at the table.
+ * 
+ * @return an integer value.
+ */
 static int	init_philos(t_table *table)
 {
 	unsigned int	i;
@@ -76,6 +104,15 @@ static int	init_philos(t_table *table)
 	return (0);
 }
 
+/**
+ * The function `init_data` initializes mutexes and philosophers in a table.
+ * 
+ * @param table The parameter "table" is a pointer to a structure of type
+ * "t_table".
+ * 
+ * @return an integer value. If the initialization of mutexes or philosophers
+ * fails, it will return 1. Otherwise, it will return 0.
+ */
 int	init_data(t_table *table)
 {
 	if (init_mutexes(table))

@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:10:50 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/28 12:26:28 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:37:17 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ bool	is_simulation_finish(t_table *table)
 	return (get_bool(&table->control_mtx, &table->end_sim));
 }
 
+/**
+ * The function "make_simulation_fair" ensures that the simulation is fair by
+ * introducing a delay for even-numbered philosophers in tables with an
+ * even number of philosophers, and allowing odd-numbered philosophers to
+ * continue thinking in tables with an odd number of philosophers.
+ * 
+ * @param philo A pointer to a structure representing a philosopher in a dining
+ * philosophers simulation.
+ */
 void	make_simulation_fair(t_philo *philo)
 {
 	if (philo->table->n_philos % 2 == 0)

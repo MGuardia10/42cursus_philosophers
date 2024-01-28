@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:21:54 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/28 12:26:39 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:46:29 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 #include "../inc/error.h"
 #include "../inc/colors.h"
 
+/**
+ * The function represents the routine when there is only one philosopher. In
+ * this case there is only one fork in the table, so the only thing the philo
+ * can do is taking the fork and wait wait to die from starvation.
+ * 
+ * @param philo A pointer to a structure representing a philosopher.
+ * 
+ * @return a NULL pointer.
+ */
 void	*one_philo_routine(t_philo *philo)
 {
 	print_action(TAKING_A_FORK, philo->table, *philo);
@@ -22,6 +31,16 @@ void	*one_philo_routine(t_philo *philo)
 	return (NULL);
 }
 
+/**
+ * The function "philo_routine" is a thread function that represents the routine
+ * of a philosopher in a dining philosophers problem simulation.
+ * 
+ * @param data The `data` parameter is a void pointer that is cast to a
+ * `t_philo` struct pointer. It represents the data associated with a
+ * philosopher.
+ * 
+ * @return a `NULL` value.
+ */
 static void	*philo_routine(void *data)
 {
 	t_philo	*philo;
@@ -46,6 +65,16 @@ static void	*philo_routine(void *data)
 	return (NULL);
 }
 
+/**
+ * The supervisor_routine function checks if any philosophers have died and ends
+ * the simulation if necessary.
+ * 
+ * @param data The "data" parameter is a void pointer that is cast to a t_table
+ * pointer. It is used to pass a pointer to a t_table struct to the
+ * supervisor_routine function.
+ * 
+ * @return a NULL pointer.
+ */
 static void	*supervisor_routine(void *data)
 {
 	t_table			*table;
@@ -69,6 +98,20 @@ static void	*supervisor_routine(void *data)
 	return (NULL);
 }
 
+/**
+ * The function starts a simulation by creating threads for the supervisor and
+ * philosophers, and then waits for all threads to finish before ending the
+ * simulation.
+ * 
+ * @param table The parameter "table" is a pointer to a struct of type 
+ * "t_table". This struct likely contains information about the simulation, 
+ * such as the number of philosophers, the start time, and control variables
+ * for starting and ending the simulation.
+ * 
+ * @return an integer value. If the simulation is started successfully and all
+ * threads are created without any errors, the function will return 0. If there
+ * is an error in creating the threads, the function will return 1.
+ */
 int	start_simulation(t_table *table)
 {
 	unsigned int	i;

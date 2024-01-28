@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 11:54:11 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 10:30:53 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:47:22 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,4 @@ void	print_action(t_action action, t_table *table, t_philo philo)
 		printf("%-6zu %d has taken a fork\n", \
 						get_time(MILISECONDS) - start_time, philo.id);
 	pthread_mutex_unlock(&table->write_mtx);
-}
-
-void	print_debug(t_mtx *mutex, char *str)
-{
-	pthread_mutex_lock(mutex);
-	printf("%s\n", str);
-	pthread_mutex_unlock(mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:25:18 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/27 09:49:47 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:39:16 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include "../inc/colors.h"
 #include "../inc/error.h"
 
-void	leaks(void)
-{
-	system("leaks -q philo");
-}
+// void	leaks(void)
+// {
+// 	system("leaks -q philo");
+// }
 
 int	main(int argc, char **argv)
 {
 	t_table	table;
 
-	atexit(leaks);
+	// atexit(leaks);
 	if (argc != 5 && argc != 6)
 		return (help(ARGC_ERROR), EXIT_FAILURE);
 	if (args_parsing(&table, argv))
@@ -49,11 +49,11 @@ TODO:
 		timestamp_in_ms - philo[X] has taken a fork. OK
  		timestamp_in_ms - philo[X] is eating. OK
  		timestamp_in_ms - philo[X] is sleeping. OK
- 		timestamp_in_ms - philo[X] is thinking. PENDING
+ 		timestamp_in_ms - philo[X] is thinking. OK
  		timestamp_in_ms - philo[X] died. OK
-	- liberar memoria, cerrar hilos y destruir mutex al acabar el programa PENDING
 	- Revisar casos limite como que solo haya un philosofo, falte arg opcional,
-	  no mas de 10ms entre mensaje y muerte de un philo (subject)... PENDING
-	- revisar leaks PENDING
-	- norminette PENDING
+	  no mas de 10ms entre mensaje y muerte de un philo (subject)... OK
+	- norminette OK
+	- liberar memoria, cerrar hilos y destruir mutex al acabar el programa OK
+	- revisar leaks en fallos previos a la simulacion PENDING
 */ 
