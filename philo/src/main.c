@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:25:18 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/28 13:39:16 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:33:49 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include "../inc/colors.h"
 #include "../inc/error.h"
 
-// void	leaks(void)
-// {
-// 	system("leaks -q philo");
-// }
+void	leaks(void)
+{
+	system("leaks -q philo");
+}
 
 int	main(int argc, char **argv)
 {
 	t_table	table;
 
-	// atexit(leaks);
+	atexit(leaks);
 	if (argc != 5 && argc != 6)
 		return (help(ARGC_ERROR), EXIT_FAILURE);
 	if (args_parsing(&table, argv))

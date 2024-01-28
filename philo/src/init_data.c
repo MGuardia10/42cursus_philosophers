@@ -6,13 +6,37 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:12:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/28 13:59:40 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:40:32 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 #include "../inc/colors.h"
 #include "../inc/error.h"
+
+/**
+ * The function "memory_allocation" allocates memory for an array of forks and
+ * an array of philosophers in a table structure.
+ * 
+ * @param table A pointer to a structure of type t_table, which contains
+ * information about the table and the philosophers.
+ * 
+ * @return an integer value. If the memory allocation is successful, it returns
+ * 0. If there is an error in memory allocation, it returns 1.
+ */
+static int	memory_allocation(t_table *table)
+{
+	table->forks = malloc(table->n_philos * sizeof(t_fork));
+	if (!table->forks)
+		return (1);
+	table->philos = malloc(table->n_philos * sizeof(t_philo));
+	if (!table->philos)
+	{
+		free(table->forks);
+		return (1);
+	}
+	return (0);
+}
 
 /**
  * The function initializes mutexes for a table and its forks.
@@ -27,22 +51,18 @@ static int	init_mutexes(t_table *table)
 {
 	unsigned int	i;
 
-	pthread_mutex_init(&table->table_mtx, NULL);
-	pthread_mutex_init(&table->control_mtx, NULL);
-	pthread_mutex_init(&table->write_mtx, NULL);
-	table->forks = malloc(table->n_philos * sizeof(t_fork));
-	if (!table->forks)
-		return (printf("%s"MALLOC_ERROR"%s\n", RED, RES), 1);
+	if (pthread_mutex_init(&table->table_mtx, NULL))
+		return (1);
+	if (pthread_mutex_init(&table->control_mtx, NULL))
+		return (1);
+	if (pthread_mutex_init(&table->write_mtx, NULL))
+		return (1);
 	i = 0;
 	while (i < table->n_philos)
 	{
 		table->forks[i].id = i;
-		if (pthread_mutex_init(&table->forks[i].fork_mtx, NULL) != 0)
-		{
-			while (--i >= 0)
-				pthread_mutex_destroy(&table->forks[i].fork_mtx);
-			return (printf("%s"MUTEX_ERROR"%s\n", RED, RES), 1);
-		}
+		if (pthread_mutex_init(&table->forks[i].fork_mtx, NULL))
+			return (1);
 		i++;
 	}
 	return (0);
@@ -56,7 +76,7 @@ static int	init_mutexes(t_table *table)
  * @param forks An array of t_fork structures representing the available forks.
  * @param philo_pos The position of the philosopher in the table (0-indexed).
  */
-void	assing_forks(t_philo *philo, t_fork *forks, unsigned int philo_pos)
+static void	assing_forks(t_philo *philo, t_fork *forks, unsigned int philo_pos)
 {
 	if (philo->id % 2 == 0)
 	{
@@ -85,10 +105,6 @@ static int	init_philos(t_table *table)
 {
 	unsigned int	i;
 
-	table->philos = malloc(table->n_philos * sizeof(t_philo));
-	if (!table->philos)
-		return (printf("%s"MALLOC_ERROR"%s\n", RED, RES), \
-			free(table->forks), 1);
 	i = 0;
 	while (i < table->n_philos)
 	{
@@ -97,7 +113,8 @@ static int	init_philos(t_table *table)
 		table->philos[i].last_meal_time = 0;
 		table->philos[i].is_full = false;
 		table->philos[i].table = table;
-		pthread_mutex_init(&table->philos[i].philo_mtx, NULL);
+		if (pthread_mutex_init(&table->philos[i].philo_mtx, NULL))
+			return (1);
 		assing_forks(&table->philos[i], table->forks, i);
 		i++;
 	}
@@ -105,19 +122,23 @@ static int	init_philos(t_table *table)
 }
 
 /**
- * The function `init_data` initializes mutexes and philosophers in a table.
+ * The function initializes data for a table structure, including memory
+ * allocation, mutex initialization, and philosophers initialization.
  * 
- * @param table The parameter "table" is a pointer to a structure of type
- * "t_table".
+ * @param table A pointer to a structure of type t_table.
  * 
- * @return an integer value. If the initialization of mutexes or philosophers
- * fails, it will return 1. Otherwise, it will return 0.
+ * @return an integer value. If memory allocation or initialization of mutexes
+ * or philosophers fails, it will return 1. Otherwise, it will return 0.
  */
 int	init_data(t_table *table)
 {
-	if (init_mutexes(table))
-		return (1);
-	if (init_philos(table))
-		return (1);
+	if (memory_allocation(table))
+		return (printf("%s"MALLOC_ERROR"%s\n", RED, RES), 1);
+	if (init_mutexes(table) || init_philos(table))
+	{
+		free(table->forks);
+		free(table->philos);
+		return (printf("%s"MUTEX_ERROR"%s\n", RED, RES), 1);
+	}
 	return (0);
 }

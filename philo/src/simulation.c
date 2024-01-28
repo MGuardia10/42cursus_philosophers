@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:21:54 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/28 13:46:29 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:36:55 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  * 
  * @return a NULL pointer.
  */
-void	*one_philo_routine(t_philo *philo)
+static void	*one_philo_routine(t_philo *philo)
 {
 	print_action(TAKING_A_FORK, philo->table, *philo);
 	while (is_simulation_finish(philo->table) == false)

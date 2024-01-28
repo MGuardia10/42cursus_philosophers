@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:27:08 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/28 13:47:31 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:31:11 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,18 @@
 # include <limits.h>	// INT_MAX
 
 /* Typedefs */
+typedef pthread_mutex_t		t_mtx;
 typedef enum e_time_format	t_time_format;
-typedef enum e_type			t_type;
 typedef enum e_action		t_action;
 typedef struct s_table		t_table;
 typedef struct s_fork		t_fork;
 typedef struct s_philo		t_philo;
-typedef pthread_mutex_t		t_mtx;
 
 /* Enums */
 enum e_time_format
 {
 	MILISECONDS,
 	MICROSECONDS
-};
-
-enum e_type
-{
-	LONG,
-	BOOL
 };
 
 enum e_action
