@@ -1,5 +1,5 @@
 # 42cursus_philosophers
-The mandatory part of this project asks us to solve the dining [philosophers problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem) and implement a mutithreading solution using mutexes.
+The mandatory part of this project asks us to solve the dining [philosophers problem](https://medium.com/@francescofranco_39234/dining-philosophers-problem-36d0030a4459) and implement a mutithreading solution using mutexes.
 
 ![C](https://img.shields.io/badge/C-a?style=for-the-badge&logo=C&color=grey)
 ![LINUX](https://img.shields.io/badge/Linux-a?style=for-the-badge&logo=linux&color=grey)
