@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:12:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/01/28 16:40:32 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/01/29 08:36:42 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	memory_allocation(t_table *table)
  */
 static int	init_mutexes(t_table *table)
 {
-	unsigned int	i;
+	int	i;
 
 	if (pthread_mutex_init(&table->table_mtx, NULL))
 		return (1);
@@ -62,7 +62,11 @@ static int	init_mutexes(t_table *table)
 	{
 		table->forks[i].id = i;
 		if (pthread_mutex_init(&table->forks[i].fork_mtx, NULL))
+		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&table->forks[i].fork_mtx);
 			return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -103,7 +107,7 @@ static void	assing_forks(t_philo *philo, t_fork *forks, unsigned int philo_pos)
  */
 static int	init_philos(t_table *table)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (i < table->n_philos)
@@ -114,7 +118,11 @@ static int	init_philos(t_table *table)
 		table->philos[i].is_full = false;
 		table->philos[i].table = table;
 		if (pthread_mutex_init(&table->philos[i].philo_mtx, NULL))
+		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&table->philos[i].philo_mtx);
 			return (1);
+		}
 		assing_forks(&table->philos[i], table->forks, i);
 		i++;
 	}
