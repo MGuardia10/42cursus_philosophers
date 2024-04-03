@@ -6,8 +6,6 @@ The mandatory part of this project asks us to solve the dining [philosophers pro
 
 You can see the subject [**HERE.**](https://github.com/MGuardia10/42cursus/blob/main/subjects/en/philo_subject_en.pdf)
 
-To see some personal notes about the project go [**HERE.**](https://mguardia.notion.site/20c40e1b07c342b09368051e186f3164?v=de68e8aa929043489c847842db871dc9&pvs=4)
-
 To visualize the output copy the actions made by the philosophers [**HERE.**](https://nafuka11.github.io/philosophers-visualizer/)
 
 ## Installing and running the project:
